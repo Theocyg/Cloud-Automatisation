@@ -1,8 +1,5 @@
-# Ignorer les clés de sécurité GCP
 *.json
 gcp-creds.json
-
-# Ignorer les fichiers temporaires Terraform
 .terraform/
 *.tfstate
 *.tfstate.backup

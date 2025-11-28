@@ -1,0 +1,18 @@
+events {}
+
+http {
+    upstream backend_servers {
+        # Ansible va lister ici les IPs de tes Web Servers
+        {% for host in groups['web_servers'] %}
+        server {{ host }};
+        {% endfor %}
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://backend_servers;
+        }
+    }
+}
