@@ -1,0 +1,36 @@
+---
+- name: Installer pip (Gestionnaire de paquets Python)
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+
+- name: Installer Flask (Framework Web)
+  pip:
+    name: flask
+    executable: pip3
+
+- name: Créer le dossier de l'application
+  file:
+    path: /opt/app
+    state: directory
+    mode: '0755'
+
+- name: Copier le code de l'application
+  copy:
+    src: app.py
+    dest: /opt/app/app.py
+    mode: '0644'
+  notify: Restart App
+
+- name: Configurer le service Systemd
+  template:
+    src: app.service.j2
+    dest: /etc/systemd/system/backend-app.service
+  notify: Restart App
+
+- name: Démarrer l'application
+  service:
+    name: backend-app
+    state: started
+    enabled: yes

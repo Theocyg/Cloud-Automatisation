@@ -1,0 +1,6 @@
+---
+- name: Restart App
+  service:
+    name: backend-app
+    state: restarted
+    daemon_reload: yes

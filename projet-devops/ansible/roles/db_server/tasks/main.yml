@@ -1,0 +1,52 @@
+---
+- name: Installer les pré-requis (Python lib et ACL)
+  apt:
+    name:
+      - python3-psycopg2
+      - acl
+    state: present
+    update_cache: yes
+
+- name: S'assurer que PostgreSQL est démarré
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Créer une base de données de test
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: my_app_db
+
+- name: Créer un utilisateur pour l'application
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: my_app_db
+    name: app_user
+    password: password123
+    priv: ALL
+
+
+
+- name: S'assurer que PostgreSQL est démarré
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Créer une base de données de test
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: my_app_db
+
+- name: Créer un utilisateur pour l'application
+  become: true
+  become_user: postgres
+  postgresql_user:
+    db: my_app_db
+    name: app_user
+    password: password123
+    priv: ALL

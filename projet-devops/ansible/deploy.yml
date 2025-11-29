@@ -1,6 +1,6 @@
 ---
 - hosts: web_servers
-  become: true # Devenir root (sudo)
+  become: true 
   roles:
     - web_server
 
@@ -9,4 +9,13 @@
   roles:
     - load_balancer
 
-# On laisse App et DB vides pour l'instant pour tester le web d'abord
+- hosts: app_servers
+  become: true
+  roles:
+    - app_server
+
+
+- hosts: db_servers
+  become: true
+  roles:
+    - db_server

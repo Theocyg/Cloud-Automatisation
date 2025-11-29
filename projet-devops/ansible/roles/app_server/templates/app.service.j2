@@ -1,0 +1,12 @@
+[Unit]
+Description=Mon Application Backend Flask
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/app
+ExecStart=/usr/bin/python3 /opt/app/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
